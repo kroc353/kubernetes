@@ -1,0 +1,30 @@
+---
+- name: install kyverno
+  #connection: network_cli
+  #gather_facts: false
+  connection: local
+  hosts: all
+  tasks:
+
+  # From repository
+  - name: Add kyverno helm chart repository
+    kubernetes.core.helm_repository:
+      name: kyverno
+      repo_url: https://kyverno.github.io/kyverno
+
+  - name: Deploy latest version of Kyverno 
+    kubernetes.core.helm: 
+      name: kyverno
+      chart_ref: kyverno/kyverno
+      release_namespace: kyverno
+      create_namespace: true
+      release_state: present
+      values:
+        replicaCount: 3
+      #set_values: 
+      #  - value: replicaCount=3
+    register: output
+
+  - name: Helm install command
+    ansible.builtin.debug: 
+      var: output
