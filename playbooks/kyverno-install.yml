@@ -1,14 +1,13 @@
 ---
-collections:
- - name: kubernetes.core
----
 - name: install kyverno
   #connection: network_cli
   #gather_facts: false
   connection: local
   hosts: all
+  collections:
+    - kubernetes.core
+  
   tasks:
-
   # From repository
   - name: Add kyverno helm chart repository
     kubernetes.core.helm_repository:
