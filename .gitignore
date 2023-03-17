@@ -73,4 +73,4 @@ mit_show_cmd*.yaml
 mit_copy_*.yaml
 playbooks/group_vars/
 env
-playbooks/namespace.yaml
+#playbooks/namespace.yaml
