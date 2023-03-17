@@ -1,4 +1,7 @@
 ---
+collections:
+ - name: kubernetes.core
+---
 - name: install kyverno
   #connection: network_cli
   #gather_facts: false
