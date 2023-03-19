@@ -2,7 +2,10 @@
 - name: Create Namespace
   #connection: network_cli
   #gather_facts: false
-  hosts: localhost
+  hosts: all
+  connection: local
+  collections:
+    - kubernetes.core
   tasks:
 
   - name: Create a k8s namespace
