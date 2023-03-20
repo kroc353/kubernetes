@@ -1,6 +1,6 @@
 ---
 - name: Create Namespace {{ namespace }}
-  hosts: all
+  hosts: localhost
   connection: local
   collections:
     - kubernetes.core

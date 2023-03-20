@@ -1,9 +1,7 @@
 ---
 - name: install kyverno
-  #connection: network_cli
-  #gather_facts: false
   connection: local
-  hosts: all
+  hosts: localhost
   collections:
     - kubernetes.core
   
