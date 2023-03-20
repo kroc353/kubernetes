@@ -1,16 +1,14 @@
 ---
-- name: Create Namespace
-  #connection: network_cli
-  #gather_facts: false
+- name: Create Namespace {{ namespace }}
   hosts: all
   connection: local
   collections:
     - kubernetes.core
   tasks:
 
-  - name: Create a k8s namespace
+  - name: Create Namespace {{ namespace }}
     kubernetes.core.k8s:
-      name: demo-project
+      name: "{{ namespace }}"
       api_version: v1
       kind: Namespace
       state: present
