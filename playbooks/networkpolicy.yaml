@@ -68,6 +68,7 @@
           kind: NetworkPolicy
           metadata:
             name: allow-from-kube-apiserver-operator
+            namespace: default
           spec:
             ingress:
             - from:
