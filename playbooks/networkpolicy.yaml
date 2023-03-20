@@ -1,0 +1,81 @@
+---
+- name: Create Project NetworkPolicies
+  hosts: localhost
+  connection: local
+  collections:
+    - kubernetes.core
+  
+  tasks:
+    
+    - name: Create Allow from OpenShift Ingress NetworkPolicy
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-from-openshift-ingress
+            namespace: default
+          spec:
+            ingress:
+            - from:
+              - namespaceSelector:
+                  matchLabels:
+                    policy-group.network.openshift.io/ingress: ""
+            podSelector: {}
+            policyTypes:
+            - Ingress
+
+    - name: Create Allow from OpenShift Monitoring NetworkPolicy
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-from-openshift-monitoring
+            namespace: default
+          spec:
+            ingress:
+            - from:
+              - namespaceSelector:
+                  matchLabels:
+                    network.openshift.io/policy-group: monitoring
+            podSelector: {}
+            policyTypes:
+            - Ingress
+
+    - name: Create Allow from Same Namespace NetworkPolicy
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-from-same-namespace
+            namespace: default
+          spec:
+            podSelector: 
+            ingress:
+            - from:
+              - podSelector: {} 
+
+    - name: Create Allow from Kube API Server NetworkPolicy
+      kubernetes.core.k8s:
+        state: present
+        definition:  
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-from-kube-apiserver-operator
+          spec:
+            ingress:
+            - from:
+              - namespaceSelector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: openshift-kube-apiserver-operator
+                podSelector:
+                  matchLabels:
+                    app: kube-apiserver-operator
+            policyTypes:
+            - Ingress
