@@ -12,7 +12,7 @@
   - name: Add kyverno helm chart repository
     kubernetes.core.helm_repository:
       name: kyverno
-      repo_url: https://kyverno.github.io/kyverno
+      repo_url: https://kyverno.github.io/kyverno/
 
   - name: Deploy latest version of Kyverno 
     kubernetes.core.helm: 
